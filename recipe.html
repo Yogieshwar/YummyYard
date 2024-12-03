@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="recipe-details-container">
+        
+
+    </div>
+
+    <!-- Script to retrieve and display recipe details -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Get recipe data from localStorage
+            const selectedMeal = JSON.parse(localStorage.getItem("selectedMeal"));
+
+            if (!selectedMeal) {
+                // Redirect back to the homepage if no meal data is found
+                window.location.href = "index.html";
+                return;
+            }
+
+            // Generate ingredients list
+            const generateIngredientsList = (meal) => {
+                let ingredientsHTML = "<ul>";
+                for (let i = 1; i <= 20; i++) {
+                    const ingredient = meal[`strIngredient${i}`];
+                    const measure = meal[`strMeasure${i}`];
+                    if (ingredient && ingredient.trim() !== "") {
+                        ingredientsHTML += `<li>${ingredient} - ${measure ? measure : "As-required"}</li>`;
+                    }
+                }
+                ingredientsHTML += "</ul>";
+                return ingredientsHTML;
+            };
+
+            // Display the recipe details
+            const recipeDetailsContainer = document.querySelector(".recipe-details-container");
+            recipeDetailsContainer.innerHTML = `
+                <div class="recipeDetails">
+                    <img src="${selectedMeal.strMealThumb}" alt="${selectedMeal.strMeal}">
+                    <h2>${selectedMeal.strMeal}</h2>
+                    <p><strong>Category:</strong> ${selectedMeal.strCategory}</p>
+                    <p><strong>Area:</strong> ${selectedMeal.strArea}</p>
+                    <p><strong>Instructions:</strong> ${selectedMeal.strInstructions}</p>
+                    <h3>Ingredients:</h3>
+                    ${generateIngredientsList(selectedMeal)}
+                    ${selectedMeal.strYoutube ? `
+                        <div class="video-container">
+                            <h3>Watch Video Tutorial:</h3>
+                            <iframe width="560" height="315" 
+                                src="${selectedMeal.strYoutube.replace("watch?v=", "embed/")}" 
+                                title="Recipe Video"
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    ` : ""}
+                    <button class="go-back-btn">Go Back</button>
+                </div>
+            `;
+
+
+            // Add functionality to the "Go Back" button
+            const goBackBtn = document.querySelector(".go-back-btn");
+            goBackBtn.addEventListener("click", () => {
+                
+                window.location.href = "index.html";
+            });
+
+            
+        });
+    </script>
+    
+
+
+    <script src="./script.js"></script>
+    
+</body>
+</html>
