@@ -273,7 +273,7 @@ section p{
         font-size: 15px;
         padding: 5px;
         position: absolute;
-        left: 25%;
+        left: 18%;
         top: 40%;
     }
 
@@ -378,4 +378,28 @@ section p{
 
 .go-back-btn:hover {
     background-color: #c93a2f;
+}
+@media screen and (min-width:576px) and (max-width: 768px){
+    .input-form input[type="text"] {
+        width: 400px;
+        height: 35px;
+        font-size: 15px;
+        padding: 5px;
+        position: absolute;
+        left: 25%;
+        top: 40%;
+    }
+    .input-form i {
+        position: absolute;
+        margin-top: 10px;
+        top: 38%;
+        left: 78%;
+        color: #171413;
+        font-size: 1rem;
+        position: absolute;
+        top: 40%;
+        left: 74%;
+        
+    }
+
 }
